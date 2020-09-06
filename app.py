@@ -1,6 +1,9 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
+from sklearn.preprocessing import StandardScaler
+from sklearn.externals.joblib import dump, load
+sc=load('std_scaler.bin')
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
@@ -14,24 +17,23 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
+    prediction_text = ''
+    txt_class = ''
     int_features = [int(x) for x in request.form.values()]
+
     final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
+    print(final_features)
+    if model.predict(sc.transform(final_features)) == [[4]]:
+        prediction_text = 'Prone to Cancer'
+        txt_class = 'prone-text'
+    else:
+        prediction_text = 'Not Prone to Cancer'
+        txt_class = 'non-prone-text'
 
-    output = round(prediction[0], 2)
-
-    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
-
-# @app.route('/predict_api',methods=['POST'])
-# def predict_api():
-#     '''
-#     For direct API calls trought request
-#     '''
-#     data = request.get_json(force=True)
-#     prediction = model.predict([np.array(list(data.values()))])
-
-#     output = prediction[0]
-#     return jsonify(output)
+    return render_template('index.html', prediction_text=prediction_text,txt_class=txt_class)
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+    

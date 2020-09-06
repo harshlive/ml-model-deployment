@@ -32,7 +32,7 @@ body {
 }
 .login { 
 	position: absolute;
-	top: 40%;
+	top: 20%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
 	width:400px;
@@ -61,3 +61,29 @@ input {
 	transition: box-shadow .5s ease;
 }
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
+
+.prone-text {
+	color: black;
+    /* background: white; */
+    border-radius: 5px;
+    padding: 5px;
+    background-image: linear-gradient(to bottom right, red, white);
+    background-color: white;
+    /* box-shadow: 3px 3px 3px #050050; */
+    box-shadow: inset 0 0 3px #000000;
+}
+.non-prone-text {
+	color: black;
+    /* background: white; */
+    border-radius: 5px;
+    padding: 5px;
+    background-image: linear-gradient(to bottom right, green, white);
+    background-color: white;
+    /* box-shadow: 3px 3px 3px #050050; */
+    box-shadow: inset 0 0 3px #000000;
+}
+.footer {
+	position: fixed;
+    top: 90%;
+	left: 45%;
+}
